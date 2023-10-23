@@ -8,7 +8,7 @@ assignees: Paksubeen
 ---
 
 ## 오늘 한 일
-- 내용 
+- 내용
 
 ## 미션 회고
 - 내용
