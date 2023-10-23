@@ -2,7 +2,7 @@
 name: Mission request
 about: Progress mission for this project
 title: "[0일차] 미션 내용"
-labels: "\bMission"
+labels: Mission
 assignees: Paksubeen
 
 ---
