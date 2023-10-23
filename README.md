@@ -1,1 +1,1 @@
-# resat-farming-challenge
+# Resat Farming Challenge
