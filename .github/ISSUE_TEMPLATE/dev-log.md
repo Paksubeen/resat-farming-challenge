@@ -1,9 +1,9 @@
 ---
 name: Dev Log
 about: Write Dev Log for this project
-title: "[DevLog] O일차 미션 회고"
-labels: ''
-assignees: ''
+title: "[DevLog] 0일차 미션 회고"
+labels: DevLog
+assignees: Paksubeen
 
 ---
 

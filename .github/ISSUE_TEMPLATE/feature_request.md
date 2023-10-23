@@ -1,16 +1,15 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
+title: "[0일차] 미션 내용"
+labels: Feature
+assignees: Paksubeen
 
 ---
 
 Description
-> 기능 요구사항 상세설명
+> 기능 요구사항
 
 Progress
-- [ ] 할일1
-- [ ] 할일2
-- [ ] 할일3
+- [ ] 할 일
+- [ ] 할 일
