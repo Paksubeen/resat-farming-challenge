@@ -2,7 +2,7 @@
 name: Dev Log
 about: Write Dev Log for this project
 title: "[DevLog] 0일차 미션 회고"
-labels: DevLog
+labels: "DevLog, \bMission"
 assignees: Paksubeen
 
 ---
