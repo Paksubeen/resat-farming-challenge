@@ -21,10 +21,19 @@ const handleStartTimer = () => {
 
   let totalSecond = hourValue * 3600 + minValue * 60 + secValue;
 
+  hourInput.disabled = true;
+  minInput.disabled = true;
+  secInput.disabled = true;
+
   timer = setInterval(() => {
     if (totalSecond === 0) {
       clearInterval(timer);
       alert("타이머 종료");
+
+      hourInput.disabled = false;
+      minInput.disabled = false;
+      secInput.disabled = false;
+
       return;
     } else {
       totalSecond--;
@@ -42,13 +51,22 @@ const handleStartTimer = () => {
 
 const handleStopTimer = () => {
   clearInterval(timer);
+
+  hourInput.disabled = false;
+  minInput.disabled = false;
+  secInput.disabled = false;
 };
 
 const handleResetTimer = () => {
   clearInterval(timer);
+
   hourInput.value = "00";
   minInput.value = "00";
   secInput.value = "00";
+
+  hourInput.disabled = false;
+  minInput.disabled = false;
+  secInput.disabled = false;
 };
 
 startButton.addEventListener("click", handleStartTimer);
