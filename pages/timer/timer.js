@@ -62,6 +62,7 @@ const handleResetTimer = () => {
   clearInterval(timer);
   updateTimerValue(0, 0, 0);
   setInputDisabled(false);
+  hourInput.focus();
 };
 
 const handleClearInput = (e) => {
