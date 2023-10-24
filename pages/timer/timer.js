@@ -54,3 +54,11 @@ const handleResetTimer = () => {
 startButton.addEventListener("click", handleStartTimer);
 stopButton.addEventListener("click", handleStopTimer);
 resetButton.addEventListener("click", handleResetTimer);
+
+const handleClearInput = (e) => {
+  e.target.value = "";
+};
+
+hourInput.addEventListener("focus", handleClearInput);
+minInput.addEventListener("focus", handleClearInput);
+secInput.addEventListener("focus", handleClearInput);
