@@ -19,22 +19,24 @@ const handleStartTimer = () => {
     return;
   }
 
+  let totalSecond = hourValue * 3600 + minValue * 60 + secValue;
+
   timer = setInterval(() => {
-    const totalSecond = hourValue * 3600 + minValue * 60 + secValue - 1;
-
-    if (totalSecond < 0) {
-      alert("타이머 종료");
+    if (totalSecond === 0) {
       clearInterval(timer);
+      alert("타이머 종료");
       return;
+    } else {
+      totalSecond--;
+
+      const hour = Math.floor(totalSecond / 3600);
+      const min = Math.floor((totalSecond % 3600) / 60);
+      const sec = totalSecond % 60;
+
+      hourInput.value = String(hour).padStart(2, "0");
+      minInput.value = String(min).padStart(2, "0");
+      secInput.value = String(sec).padStart(2, "0");
     }
-
-    const hour = Math.floor(totalSecond / 3600);
-    const min = Math.floor((totalSecond % 3600) / 60);
-    const sec = totalSecond % 60;
-
-    hourInput.value = String(hour).padStart(2, "0");
-    minInput.value = String(min).padStart(2, "0");
-    secInput.value = String(sec).padStart(2, "0");
   }, 1000);
 };
 
