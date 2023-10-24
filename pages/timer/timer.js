@@ -8,6 +8,18 @@ const resetButton = document.querySelector(".reset-button");
 
 let timer;
 
+const setInputDisabled = (disabled) => {
+  hourInput.disabled = disabled;
+  minInput.disabled = disabled;
+  secInput.disabled = disabled;
+};
+
+const updateTimerValue = (hour, min, sec) => {
+  hourInput.value = String(hour).padStart(2, "0");
+  minInput.value = String(min).padStart(2, "0");
+  secInput.value = String(sec).padStart(2, "0");
+};
+
 const handleStartTimer = () => {
   const hourValue = Number(hourInput.value);
   const minValue = Number(minInput.value);
@@ -19,21 +31,15 @@ const handleStartTimer = () => {
     return;
   }
 
-  let totalSecond = hourValue * 3600 + minValue * 60 + secValue;
+  setInputDisabled(true);
 
-  hourInput.disabled = true;
-  minInput.disabled = true;
-  secInput.disabled = true;
+  let totalSecond = hourValue * 3600 + minValue * 60 + secValue;
 
   timer = setInterval(() => {
     if (totalSecond === 0) {
       clearInterval(timer);
       alert("타이머 종료");
-
-      hourInput.disabled = false;
-      minInput.disabled = false;
-      secInput.disabled = false;
-
+      setInputDisabled(true);
       return;
     } else {
       totalSecond--;
@@ -42,36 +48,21 @@ const handleStartTimer = () => {
       const min = Math.floor((totalSecond % 3600) / 60);
       const sec = totalSecond % 60;
 
-      hourInput.value = String(hour).padStart(2, "0");
-      minInput.value = String(min).padStart(2, "0");
-      secInput.value = String(sec).padStart(2, "0");
+      updateTimerValue(hour, min, sec);
     }
   }, 1000);
 };
 
 const handleStopTimer = () => {
   clearInterval(timer);
-
-  hourInput.disabled = false;
-  minInput.disabled = false;
-  secInput.disabled = false;
+  setInputDisabled(false);
 };
 
 const handleResetTimer = () => {
   clearInterval(timer);
-
-  hourInput.value = "00";
-  minInput.value = "00";
-  secInput.value = "00";
-
-  hourInput.disabled = false;
-  minInput.disabled = false;
-  secInput.disabled = false;
+  updateTimerValue(0, 0, 0);
+  setInputDisabled(false);
 };
-
-startButton.addEventListener("click", handleStartTimer);
-stopButton.addEventListener("click", handleStopTimer);
-resetButton.addEventListener("click", handleResetTimer);
 
 const handleClearInput = (e) => {
   e.target.value = "";
@@ -80,3 +71,7 @@ const handleClearInput = (e) => {
 hourInput.addEventListener("focus", handleClearInput);
 minInput.addEventListener("focus", handleClearInput);
 secInput.addEventListener("focus", handleClearInput);
+
+startButton.addEventListener("click", handleStartTimer);
+stopButton.addEventListener("click", handleStopTimer);
+resetButton.addEventListener("click", handleResetTimer);
