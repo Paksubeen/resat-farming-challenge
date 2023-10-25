@@ -39,6 +39,10 @@ button:active {
   background-color: #dcdcdc;
 }
 
+.selected {
+  background-color: #cecece;
+}
+
 .input-section {
   display: flex;
   justify-content: space-between;

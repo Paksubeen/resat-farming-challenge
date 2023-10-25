@@ -113,6 +113,20 @@ const handleSortTodo = (state, list) => {
   handleShowTodo(newList);
 };
 
-allButton.addEventListener("click", showAllTodo);
-doneButton.addEventListener("click", () => handleSortTodo(true, list));
-notDoneButton.addEventListener("click", () => handleSortTodo(false, list));
+const handleButtonSelection = (clicked) => {
+  allButton.classList.remove("selected");
+  doneButton.classList.remove("selected");
+  notDoneButton.classList.remove("selected");
+
+  clicked.classList.add("selected");
+};
+
+allButton.addEventListener("click", () => {
+  showAllTodo, handleButtonSelection(allButton);
+});
+doneButton.addEventListener("click", () => {
+  handleSortTodo(true, list), handleButtonSelection(doneButton);
+});
+notDoneButton.addEventListener("click", () => {
+  handleSortTodo(false, list), handleButtonSelection(notDoneButton);
+});
