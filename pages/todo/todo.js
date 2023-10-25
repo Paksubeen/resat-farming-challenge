@@ -47,11 +47,12 @@ const resetInput = () => {
 };
 
 const handleCheckTodo = (id, checked) => {
-  const newList = list.map((item) =>
-    item.id === id ? { ...item, done: checked } : item
-  );
-
-  list = newList;
+  const newList = list.map((item) => {
+    if (item.id === id) {
+      item.done = checked;
+    }
+    return item;
+  });
 
   if (filter === "all") {
     handleShowTodo(newList);
@@ -122,7 +123,7 @@ const handleButtonSelection = (clicked) => {
 };
 
 allButton.addEventListener("click", () => {
-  showAllTodo, handleButtonSelection(allButton);
+  showAllTodo(), handleButtonSelection(allButton);
 });
 doneButton.addEventListener("click", () => {
   handleSortTodo(true, list), handleButtonSelection(doneButton);
