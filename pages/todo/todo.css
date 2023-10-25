@@ -1,0 +1,66 @@
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  gap: 16px;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.todo-container p {
+  font-size: 44px;
+  color: #3a3a3a;
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  gap: 24px;
+}
+
+.button-section button {
+  width: 100px;
+  height: 48px;
+  font-size: 24px;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: background-color 0.3s;
+}
+
+.button-section button:hover {
+  background-color: #f0f0f0;
+}
+
+button:active {
+  background-color: #dcdcdc;
+}
+
+.input-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #bdbdbd;
+}
+
+.input-section input {
+  padding: 4px;
+  font-size: 20px;
+  color: #3a3a3a;
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.add-button {
+  padding: 4px 8px;
+  font-weight: 600;
+  background-color: #ececec;
+  border-radius: 2px;
+  transition: background-color 0.3s;
+}
