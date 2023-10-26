@@ -14,13 +14,32 @@ let currentMonth = currentDate.getMonth();
 let currentDay = currentDate.getDate();
 let selectedDate = null;
 
-function showCalendar(month, year) {
-  const prevHeader = document.querySelector(".calendar-table thead tr");
+function initCalendar() {
+  showCalendar(currentMonth, currentYear);
+  prevButton.addEventListener("click", showPrevMonth);
+  nextButton.addEventListener("click", showNextMonth);
+}
 
-  while (prevHeader.firstChild) {
-    prevHeader.removeChild(prevHeader.firstChild);
+function showCalendar(month, year) {
+  clearCalendar();
+  renderHeader(month, year);
+  renderCalendar(month, year);
+}
+
+function clearCalendar() {
+  const header = document.querySelector(".calendar-table thead tr");
+  const table = document.querySelector(".calendar-table tbody");
+
+  while (header.firstChild) {
+    header.removeChild(header.firstChild);
   }
 
+  while (table.firstChild) {
+    table.removeChild(table.firstChild);
+  }
+}
+
+function renderHeader(month, year) {
   const header = document.querySelector(".calendar-table thead tr");
 
   for (let day = 0; day < 7; day++) {
@@ -29,13 +48,11 @@ function showCalendar(month, year) {
     header.appendChild(dayName);
   }
 
-  const table = document.querySelector(".calendar-table tbody");
-
-  while (table.firstChild) {
-    table.removeChild(table.firstChild);
-  }
-
   yearMonth.textContent = `${year}년 ${getMonthName(month)}`;
+}
+
+function renderCalendar(month, year) {
+  const table = document.querySelector(".calendar-table tbody");
 
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
@@ -50,6 +67,7 @@ function showCalendar(month, year) {
 
     for (let col = 0; col < 7; col++) {
       const cell = document.createElement("td");
+      const date = new Date(year, month, dayCounter);
 
       if (row === 0 && col < firstDay.getDay()) {
         cell.textContent = prevMonthLastDay - firstDay.getDay() + col + 1;
@@ -57,8 +75,6 @@ function showCalendar(month, year) {
       } else if (dayCounter <= totalDays) {
         cell.textContent = dayCounter;
         dayCounter++;
-
-        const date = new Date(year, month, parseInt(cell.textContent, 10));
 
         if (isToday(date)) {
           const todayIcon = document.createElement("span");
@@ -169,15 +185,6 @@ function getMemo(date) {
   return localStorage.getItem(memoKey) || "";
 }
 
-function HandleRegisterClick() {
-  const memo = memoText.value;
-  saveMemo(selectedDate, memo);
-  closeMemoModal();
-  showCalendar(currentMonth, currentYear);
-}
-
-registerButton.addEventListener("click", HandleRegisterClick);
-
 function openMemoModal(date) {
   registerButton.removeEventListener("click", HandleRegisterClick);
 
@@ -195,7 +202,11 @@ function closeMemoModal() {
   memoModal.style.display = "none";
 }
 
-showCalendar(currentMonth, currentYear);
+function HandleRegisterClick() {
+  const memo = memoText.value;
+  saveMemo(selectedDate, memo);
+  closeMemoModal();
+  showCalendar(currentMonth, currentYear);
+}
 
-prevButton.addEventListener("click", showPrevMonth);
-nextButton.addEventListener("click", showNextMonth);
+initCalendar();
