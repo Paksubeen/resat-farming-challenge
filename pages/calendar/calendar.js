@@ -11,6 +11,7 @@ const cancelButton = document.querySelector(".cancel-button");
 const currentDate = new Date();
 let currentYear = currentDate.getFullYear();
 let currentMonth = currentDate.getMonth();
+let currentDay = currentDate.getDate();
 let selectedDate = null;
 
 function showCalendar(month, year) {
@@ -54,6 +55,12 @@ function showCalendar(month, year) {
         dayCounter++;
 
         const date = new Date(year, month, parseInt(cell.textContent, 10));
+
+        if (isToday(date)) {
+          const todayIcon = document.createElement("span");
+          todayIcon.className = "today-icon";
+          cell.appendChild(todayIcon);
+        }
 
         if (getMemo(date)) {
           const memoIcon = document.createElement("span");
@@ -116,6 +123,15 @@ function showNextMonth() {
     currentMonth++;
   }
   showCalendar(currentMonth, currentYear);
+}
+
+function isToday(date) {
+  const today = new Date();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
 }
 
 function handleDateClick(event) {
