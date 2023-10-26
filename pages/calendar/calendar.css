@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 500px;
   padding: 24px 32px;
   gap: 16px;
   border-radius: 16px;
@@ -13,7 +14,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background-color: pink;
 }
 
 .calendar-header p {
@@ -21,17 +21,43 @@
 }
 
 .calendar-header button {
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .calendar-table {
   width: 100%;
 }
 
+.calendar-table th {
+  text-align: center;
+  background-color: #cecece;
+  border: 1px solid #828282;
+}
+
+.calendar-table td {
+  position: relative;
+  text-align: center;
+  height: 64px;
+  border: 1px solid #828282;
+  cursor: pointer;
+}
+
+.memo-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #dcdcdc;
+  border-radius: 50%;
+  top: 3px;
+  left: 50%;
+  z-index: -1;
+  transform: translateX(-50%);
+}
+
 .modal-container {
   display: none;
   position: fixed;
-  top: 50%;
+  top: 56%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -39,6 +65,8 @@
 .memo-modal {
   display: flex;
   flex-direction: column;
+  width: 400px;
+  height: 300px;
   padding: 16px;
   gap: 8px;
   background-color: #f0f0f0;
@@ -47,7 +75,8 @@
 }
 
 .memo-text {
-  padding: 4px;
+  height: 100%;
+  padding: 8px;
   border: 1px solid #adadad;
   border-radius: 4px;
   outline: none;
