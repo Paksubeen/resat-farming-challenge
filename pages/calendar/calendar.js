@@ -42,6 +42,9 @@ function showCalendar(month, year) {
   const totalDays = lastDay.getDate();
   let dayCounter = 1;
 
+  const prevMonthLastDate = new Date(year, month, 0);
+  const prevMonthLastDay = prevMonthLastDate.getDate();
+
   for (let row = 0; dayCounter <= totalDays; row++) {
     const newRow = document.createElement("tr");
 
@@ -49,7 +52,8 @@ function showCalendar(month, year) {
       const cell = document.createElement("td");
 
       if (row === 0 && col < firstDay.getDay()) {
-        cell.textContent = "";
+        cell.textContent = prevMonthLastDay - firstDay.getDay() + col + 1;
+        cell.classList.add("other-month");
       } else if (dayCounter <= totalDays) {
         cell.textContent = dayCounter;
         dayCounter++;
@@ -67,6 +71,10 @@ function showCalendar(month, year) {
           memoIcon.className = "memo-icon";
           cell.appendChild(memoIcon);
         }
+      } else {
+        cell.textContent = dayCounter - totalDays;
+        dayCounter++;
+        cell.classList.add("other-month");
       }
 
       newRow.appendChild(cell);
@@ -136,7 +144,9 @@ function isToday(date) {
 
 function handleDateClick(event) {
   const clickedDate = event.target.textContent;
-  if (clickedDate !== "") {
+  const clickedCell = event.target;
+
+  if (!clickedCell.classList.contains("other-month")) {
     selectedDate = new Date(currentYear, currentMonth, clickedDate);
     openMemoModal(selectedDate);
   }

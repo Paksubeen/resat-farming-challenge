@@ -50,6 +50,10 @@ td:nth-last-child(1) {
   color: #828282;
 }
 
+.other-month {
+  color: #adadad;
+}
+
 .today-icon {
   position: absolute;
   width: 20px;
