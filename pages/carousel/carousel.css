@@ -1,0 +1,38 @@
+.carousel-container {
+  position: relative;
+  width: 500px;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  display: flex;
+  transition: all 0.3s ease-in-out;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+}
+
+.carousel-slide img {
+  width: 500px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.prev-button,
+.next-button {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
