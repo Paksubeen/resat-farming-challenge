@@ -10,6 +10,9 @@ const images = [
   "../../assets/image3.png",
 ];
 
+let intervalId;
+const slideInterval = 2000;
+
 images.forEach((image) => {
   const slide = document.createElement("div");
   slide.className = "carousel-slide";
@@ -26,14 +29,30 @@ function updateCarousel() {
   slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
-prevButton.addEventListener("click", () => {
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % images.length;
+  updateCarousel();
+}
+
+function prevSlide() {
   currentSlide = (currentSlide - 1 + images.length) % images.length;
   updateCarousel();
+}
+
+prevButton.addEventListener("click", () => {
+  prevSlide();
+  clearInterval(intervalId);
+  startAutoSlide();
 });
 
 nextButton.addEventListener("click", () => {
-  currentSlide = (currentSlide + 1) % images.length;
-  updateCarousel();
+  nextSlide();
+  clearInterval(intervalId);
+  startAutoSlide();
 });
 
-updateCarousel();
+function startAutoSlide() {
+  intervalId = setInterval(nextSlide, slideInterval);
+}
+
+startAutoSlide();
