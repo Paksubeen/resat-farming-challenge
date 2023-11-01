@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../../styles/main.css" />
     <link rel="stylesheet" href="../../styles/reset.css" />
     <link rel="stylesheet" href="../../styles/common.css" />
+    <link rel="stylesheet" href="../carousel/carousel.css" />
     <link rel="stylesheet" href="clone.css" />
     <title>Miniintern Clone</title>
   </head>
@@ -172,10 +173,12 @@
       </section>
       <div class="service-container">
         <div class="service-section">
-          <img
-            class="service-image"
-            src="https://cdn-upload.miniintern.com/39896/aaa0c548-8779-4f01-9f4a-e9d3ae30aa4d/Artboard-112x.png"
-          />
+          <div class="carousel-container">
+            <button class="prev-button">◀</button>
+            <div class="carousel-slides"></div>
+            <button class="next-button">►</button>
+            <div class="carousel-dots"></div>
+          </div>
           <div class="service-description">
             <span class="service-badge">서비스 런칭</span>
             <div class="service-info">
@@ -505,6 +508,6 @@
         </div>
       </div>
     </footer>
-    <script src="clone.js"></script>
+    <script src="../carousel/carousel.js"></script>
   </body>
 </html>

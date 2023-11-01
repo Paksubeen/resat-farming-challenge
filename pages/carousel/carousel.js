@@ -5,27 +5,46 @@ const nextButton = document.querySelector(".next-button");
 const carouselDots = document.querySelector(".carousel-dots");
 
 let currentSlide = 1;
-const images = [
-  "../../assets/image1.png",
-  "../../assets/image2.png",
-  "../../assets/image3.png",
+let slideList = [
+  {
+    id: 1,
+    color: "#17a1ff",
+    text: "고객 데이터 분석으로<br/> 고객 중심 서비스 제공하기",
+  },
+  {
+    id: 2,
+    color: "#1bc481",
+    text: "기업 유튜브 채널로<br/>10만 구독자 모으기 (2탄)",
+  },
+  {
+    id: 3,
+    color: "#1bc481",
+    text: "기업 유튜브 채널로<br/>10만 구독자 모으기 (1탄)",
+  },
+  {
+    id: 4,
+    color: "#384040",
+    text: "신규 입사자의 적응을<br/>돕는 효과적인 온보딩<br/>프로그램 알아보기",
+  },
 ];
 
 let intervalId;
 const slideInterval = 2000;
-const slideLength = images.length;
-const slideWidth = 500;
+const slideLength = slideList.length;
+const slideWidth = 330;
 const slideSpeed = 300;
 
-images.forEach((image) => {
+slideList.forEach((item) => {
   const slide = document.createElement("div");
+  const text = document.createElement("p");
+
   slide.className = "carousel-slide";
+  text.className = "slide-text";
 
-  const img = document.createElement("img");
-  img.src = image;
-  img.alt = "Image";
+  slide.style.backgroundColor = item.color;
+  text.innerHTML = item.text;
 
-  slide.appendChild(img);
+  slide.appendChild(text);
   slidesContainer.appendChild(slide);
 });
 
