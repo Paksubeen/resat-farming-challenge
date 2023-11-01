@@ -197,13 +197,6 @@ section {
   max-width: 930px;
 }
 
-.service-image {
-  width: 330px;
-  border-radius: 12px;
-  cursor: pointer;
-  object-fit: cover;
-}
-
 .service-description {
   position: relative;
   padding: 64px 0 0 32px;

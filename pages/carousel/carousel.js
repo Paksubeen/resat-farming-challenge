@@ -2,32 +2,51 @@ const carouselContainer = document.querySelector(".carousel-container");
 const slidesContainer = document.querySelector(".carousel-slides");
 const prevButton = document.querySelector(".prev-button");
 const nextButton = document.querySelector(".next-button");
+const carouselDots = document.querySelector(".carousel-dots");
 
 let currentSlide = 1;
-const images = [
-  "../../assets/image1.png",
-  "../../assets/image2.png",
-  "../../assets/image3.png",
+let slideList = [
+  {
+    id: 1,
+    color: "#17a1ff",
+    text: "고객 데이터 분석으로<br/> 고객 중심 서비스 제공하기",
+  },
+  {
+    id: 2,
+    color: "#1bc481",
+    text: "기업 유튜브 채널로<br/>10만 구독자 모으기 (2탄)",
+  },
+  {
+    id: 3,
+    color: "#1bc481",
+    text: "기업 유튜브 채널로<br/>10만 구독자 모으기 (1탄)",
+  },
+  {
+    id: 4,
+    color: "#384040",
+    text: "신규 입사자의 적응을<br/>돕는 효과적인 온보딩<br/>프로그램 알아보기",
+  },
 ];
 
 let intervalId;
 const slideInterval = 2000;
+const slideLength = slideList.length;
+const slideWidth = 330;
+const slideSpeed = 300;
 
-images.forEach((image) => {
+slideList.forEach((item) => {
   const slide = document.createElement("div");
+  const text = document.createElement("p");
+
   slide.className = "carousel-slide";
+  text.className = "slide-text";
 
-  const img = document.createElement("img");
-  img.src = image;
-  img.alt = "Image";
+  slide.style.backgroundColor = item.color;
+  text.innerHTML = item.text;
 
-  slide.appendChild(img);
+  slide.appendChild(text);
   slidesContainer.appendChild(slide);
 });
-
-const slideLength = images.length;
-const slideWidth = 500;
-const slideSpeed = 300;
 
 let firstChild = slidesContainer.firstElementChild;
 let lastChild = slidesContainer.lastElementChild;
@@ -42,25 +61,49 @@ slidesContainer.style.transform = `translate3d(-${
   slideWidth * currentSlide
 }px, 0px, 0px)`;
 
+for (let i = 0; i < slideLength; i++) {
+  const dot = document.createElement("span");
+  dot.className = "carousel-dot";
+  dot.addEventListener("click", () => {
+    goToSlide(i);
+    clearInterval(intervalId);
+    startAutoSlide();
+  });
+  carouselDots.appendChild(dot);
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll(".carousel-dot");
+  dots.forEach((dot, idx) => {
+    if (idx === currentSlide - 1) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
+  });
+}
+
 function updateCarousel() {
   slidesContainer.style.transition = `${slideSpeed}ms`;
   slidesContainer.style.transform = `translateX(-${
     slideWidth * currentSlide
   }px)`;
+  updateDots();
 }
 
 function nextSlide() {
-  if (currentSlide < slideLength) {
+  if (currentSlide < slideLength + 1) {
     currentSlide++;
     updateCarousel();
   }
 
-  if (currentSlide === slideLength) {
-    currentSlide = 0;
+  if (currentSlide === slideLength + 1) {
+    currentSlide = 1;
     setTimeout(function () {
       slidesContainer.style.transition = "0ms";
-      slidesContainer.style.transform = "translate3d(0px, 0px, 0px)";
+      slidesContainer.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
     }, slideSpeed);
+    updateDots();
   }
 }
 
@@ -77,6 +120,7 @@ function prevSlide() {
       slidesContainer.style.transform =
         "translate3d(-" + slideWidth * slideLength + "px, 0px, 0px)";
     }, slideSpeed);
+    updateDots();
   }
 }
 
@@ -92,8 +136,18 @@ nextButton.addEventListener("click", () => {
   startAutoSlide();
 });
 
-function startAutoSlide() {
-  intervalId = setInterval(nextSlide, slideInterval);
+function goToSlide(slideIndex) {
+  currentSlide = slideIndex + 1;
+  updateCarousel();
+  updateDots();
 }
 
+function startAutoSlide() {
+  intervalId = setInterval(() => {
+    nextSlide();
+    updateDots();
+  }, slideInterval);
+}
+
+goToSlide(0);
 startAutoSlide();
