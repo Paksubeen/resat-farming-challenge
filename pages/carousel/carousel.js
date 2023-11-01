@@ -2,6 +2,7 @@ const carouselContainer = document.querySelector(".carousel-container");
 const slidesContainer = document.querySelector(".carousel-slides");
 const prevButton = document.querySelector(".prev-button");
 const nextButton = document.querySelector(".next-button");
+const carouselDots = document.querySelector(".carousel-dots");
 
 let currentSlide = 1;
 const images = [
@@ -12,6 +13,9 @@ const images = [
 
 let intervalId;
 const slideInterval = 2000;
+const slideLength = images.length;
+const slideWidth = 500;
+const slideSpeed = 300;
 
 images.forEach((image) => {
   const slide = document.createElement("div");
@@ -24,10 +28,6 @@ images.forEach((image) => {
   slide.appendChild(img);
   slidesContainer.appendChild(slide);
 });
-
-const slideLength = images.length;
-const slideWidth = 500;
-const slideSpeed = 300;
 
 let firstChild = slidesContainer.firstElementChild;
 let lastChild = slidesContainer.lastElementChild;
@@ -42,25 +42,49 @@ slidesContainer.style.transform = `translate3d(-${
   slideWidth * currentSlide
 }px, 0px, 0px)`;
 
+for (let i = 0; i < slideLength; i++) {
+  const dot = document.createElement("span");
+  dot.className = "carousel-dot";
+  dot.addEventListener("click", () => {
+    goToSlide(i);
+    clearInterval(intervalId);
+    startAutoSlide();
+  });
+  carouselDots.appendChild(dot);
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll(".carousel-dot");
+  dots.forEach((dot, idx) => {
+    if (idx === currentSlide - 1) {
+      dot.classList.add("active");
+    } else {
+      dot.classList.remove("active");
+    }
+  });
+}
+
 function updateCarousel() {
   slidesContainer.style.transition = `${slideSpeed}ms`;
   slidesContainer.style.transform = `translateX(-${
     slideWidth * currentSlide
   }px)`;
+  updateDots();
 }
 
 function nextSlide() {
-  if (currentSlide < slideLength) {
+  if (currentSlide < slideLength + 1) {
     currentSlide++;
     updateCarousel();
   }
 
-  if (currentSlide === slideLength) {
-    currentSlide = 0;
+  if (currentSlide === slideLength + 1) {
+    currentSlide = 1;
     setTimeout(function () {
       slidesContainer.style.transition = "0ms";
-      slidesContainer.style.transform = "translate3d(0px, 0px, 0px)";
+      slidesContainer.style.transform = `translate3d(-${slideWidth}px, 0px, 0px)`;
     }, slideSpeed);
+    updateDots();
   }
 }
 
@@ -77,6 +101,7 @@ function prevSlide() {
       slidesContainer.style.transform =
         "translate3d(-" + slideWidth * slideLength + "px, 0px, 0px)";
     }, slideSpeed);
+    updateDots();
   }
 }
 
@@ -92,8 +117,18 @@ nextButton.addEventListener("click", () => {
   startAutoSlide();
 });
 
-function startAutoSlide() {
-  intervalId = setInterval(nextSlide, slideInterval);
+function goToSlide(slideIndex) {
+  currentSlide = slideIndex + 1;
+  updateCarousel();
+  updateDots();
 }
 
+function startAutoSlide() {
+  intervalId = setInterval(() => {
+    nextSlide();
+    updateDots();
+  }, slideInterval);
+}
+
+goToSlide(0);
 startAutoSlide();
