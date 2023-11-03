@@ -32,7 +32,15 @@
   .navbar-menu {
     display: none;
     flex-direction: column;
-    padding-top: 24px;
+    justify-content: flex-start;
+    position: absolute;
+    padding-top: 80px;
+    width: 240px;
+    height: 100%;
+    top: 0;
+    right: -100%;
+    transition: right 0.3s;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 
   .navbar-menu li {
@@ -45,5 +53,6 @@
 
   .navbar-menu.active {
     display: flex;
+    right: 0;
   }
 }
